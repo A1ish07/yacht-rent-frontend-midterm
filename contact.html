@@ -29,23 +29,66 @@
         </nav>
     </header>
 
-    <main>
+    <main class="container my-5">
+
+        <h1 class="text-center mb-5">Book Your Yacht</h1>
+
+        <div class="row g-5">
+            <section class="col-12 col-lg-7">
+                <h2 class="h4 mb-3">Booking Request</h2>
+                <form action="#" method="post" id="booking-form">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Full name</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="phone" class="form-label">Phone</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="yacht" class="form-label">Yacht</label>
+                            <select class="form-select" id="yacht" name="yacht" required>
+                                <option value="">5 yacht available now</option>
+                                <option>Azure Spirit</option>
+                                <option>Ocean Pearl</option>
+                                <option>Golden Horizon</option>
+                                <option>Sea Breeze</option>
+                                <option>Royal Wave</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="date" class="form-label">Start date</label>
+                            <input type="date" class="form-control" id="date" name="date" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-gold px-5">Send Request</button>
+                </form>
+            </section>
+
+            <section class="col-12 col-lg-5">
+                <h2 class="h4 mb-3">Contact Details</h2>
+                <ul class="contact-info list-unstyled">
+                    <li><strong>Phone:</strong> +7 676 67 67</li>
+                    <li><strong>Email:</strong> sanyabussiness@gmail.com</li>
+                    <li><strong>Address:</strong> Turan 67</li>
+                    <li><strong>Hours:</strong> Mon–Sun, 08:00–18:00</li>
+                </ul>
+                <p>Check yacht Availability on the <a href="yachts.html">Yachts</a> page.</p>
+            </section>
+        </div>
+
     </main>
 
-    <footer class="bg-dark text-white py-4">
+    <footer class="bg-dark text-white text-center py-4">
         <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <p class="mb-0">&copy; 2025 YachtRent. All rights reserved.</p>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <a href="index.html" class="text-white text-decoration-none me-3">Home</a>
-                    <a href="yachts.html" class="text-white text-decoration-none me-3">Yachts</a>
-                    <a href="destinations.html" class="text-white text-decoration-none me-3">Destinations</a>
-                    <a href="about.html" class="text-white text-decoration-none me-3">About</a>
-                    <a href="contact.html" class="text-white text-decoration-none">Contact</a>
-                </div>
-            </div>
+            <p class="mb-0">2026 YachtRent.</p>
         </div>
     </footer>
 
