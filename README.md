@@ -46,4 +46,4 @@ yacht-rent-website/
 ```
 ## Live Demo
 
-<paste your GitHub Pages link here>
+https://a1ish07.github.io/yacht-rent-frontend-midterm/
