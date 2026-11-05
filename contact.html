@@ -36,37 +36,64 @@
         <div class="row g-5">
             <section class="col-12 col-lg-7">
                 <h2 class="h4 mb-3">Booking Request</h2>
-                <form action="#" method="post" id="booking-form">
+                <div id="booking-success" class="alert alert-success d-none" role="alert">
+                    Thank you! Your booking request has been submitted successfully. We will contact you shortly.
+                </div>
+                <form action="#" method="post" id="booking-form" novalidate>
                     <div class="mb-3">
                         <label for="name" class="form-label">Full name</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="John Doe">
+                        <div class="invalid-feedback"></div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="john@example.com">
+                            <div class="invalid-feedback"></div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="phone" class="form-label">Phone</label>
-                            <input type="tel" class="form-control" id="phone" name="phone" required>
+                            <input type="tel" class="form-control" id="phone" name="phone" placeholder="+7 700 123 4567">
+                            <div class="invalid-feedback"></div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="yacht" class="form-label">Yacht</label>
-                            <select class="form-select" id="yacht" name="yacht" required>
-                                <option value="">5 yacht available now</option>
-                                <option>Azure Spirit</option>
-                                <option>Ocean Pearl</option>
-                                <option>Golden Horizon</option>
-                                <option>Sea Breeze</option>
-                                <option>Royal Wave</option>
+                            <select class="form-select" id="yacht" name="yacht">
+                                <option value="">Select a yacht</option>
+                                <option value="Azure Spirit">Azure Spirit</option>
+                                <option value="Ocean Pearl">Ocean Pearl</option>
+                                <option value="Golden Horizon">Golden Horizon</option>
+                                <option value="Sea Breeze">Sea Breeze</option>
+                                <option value="Royal Wave">Royal Wave</option>
                             </select>
+                            <div class="invalid-feedback"></div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="date" class="form-label">Start date</label>
-                            <input type="date" class="form-control" id="date" name="date" required>
+                            <input type="date" class="form-control" id="date" name="date">
+                            <div class="invalid-feedback"></div>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="guests" class="form-label">Guests (1–12)</label>
+                            <input type="number" class="form-control" id="guests" name="guests" min="1" max="12" placeholder="e.g. 4">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="days" class="form-label">Rental duration (days)</label>
+                            <input type="number" class="form-control" id="days" name="days" min="1" placeholder="e.g. 3">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" type="checkbox" id="terms" name="terms">
+                        <label class="form-check-label" for="terms">
+                            I agree to the rental terms and conditions
+                        </label>
+                        <div class="invalid-feedback"></div>
                     </div>
                     <button type="submit" class="btn btn-gold px-5">Send Request</button>
                 </form>
@@ -92,6 +119,9 @@
         </div>
     </footer>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/validation.js"></script>
 </body>
 </html>
