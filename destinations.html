@@ -33,68 +33,14 @@
 
         <h1 class="text-center mb-3">Choose a route and we will plan the rest.</h1>
 
-        <section class="destinations-grid" id="routes">
-            <article class="destination-card">
-                <div class="destination-img">
-                    <img src="images/santorini.png" alt="Santorini, Greece">
-                    <span class="price-badge">from $1,200/day</span>
-                </div>
-                <div class="destination-body">
-                    <h2 class="h5">Santorini, Greece</h2>
-                    <p>Whitewashed cliffs, sunset sailing and volcanic beaches.</p>
-                </div>
-            </article>
-            <article class="destination-card">
-                <div class="destination-img">
-                    <img src="images/amalfi.png" alt="Amalfi Coast, Italy">
-                    <span class="price-badge">from $2,500/day</span>
-                </div>
-                <div class="destination-body">
-                    <h2 class="h5">Amalfi Coast, Italy</h2>
-                    <p>Colorful villages, lemon groves and hidden coves.</p>
-                </div>
-            </article>
-            <article class="destination-card">
-                <div class="destination-img">
-                    <img src="images/french.png" alt="French Riviera">
-                    <span class="price-badge">from $3,800/day</span>
-                </div>
-                <div class="destination-body">
-                    <h2 class="h5">French Riviera</h2>
-                    <p>Glamorous harbors of Nice, Cannes and Saint-Tropez.</p>
-                </div>
-            </article>
-            <article class="destination-card">
-                <div class="destination-img">
-                    <img src="images/crotia.png" alt="Dubrovnik, Croatia">
-                    <span class="price-badge">from $800/day</span>
-                </div>
-                <div class="destination-body">
-                    <h2 class="h5">Dubrovnik, Croatia</h2>
-                    <p>Medieval walls and the calm Adriatic islands.</p>
-                </div>
-            </article>
-            <article class="destination-card">
-                <div class="destination-img">
-                    <img src="images/bahamas.png" alt="Bahamas">
-                    <span class="price-badge">from $2,500/day</span>
-                </div>
-                <div class="destination-body">
-                    <h2 class="h5">Bahamas</h2>
-                    <p>Turquoise water, white sand and swimming pigs.</p>
-                </div>
-            </article>
-            <article class="destination-card">
-                <div class="destination-img">
-                    <img src="images/maldives.png" alt="Maldives">
-                    <span class="price-badge">from $5,000/day</span>
-                </div>
-                <div class="destination-body">
-                    <h2 class="h5">Maldives</h2>
-                    <p>Overwater villas, coral reefs and private atolls.</p>
-                </div>
-            </article>
-        </section>
+        <div class="d-flex justify-content-center flex-wrap gap-2 mb-4" id="region-filters">
+            <button type="button" class="btn btn-outline-dark active" data-region="all">All</button>
+            <button type="button" class="btn btn-outline-dark" data-region="Mediterranean">Mediterranean</button>
+            <button type="button" class="btn btn-outline-dark" data-region="Caribbean">Caribbean</button>
+            <button type="button" class="btn btn-outline-dark" data-region="Indian Ocean">Indian Ocean</button>
+        </div>
+
+        <section class="destinations-grid" id="routes"></section>
 
         <section class="text-center mt-5">
             <a href="contact.html" class="btn btn-gold px-5">Plan My Trip</a>
@@ -109,5 +55,7 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/destinations.js"></script>
 </body>
 </html>
