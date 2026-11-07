@@ -33,6 +33,31 @@
 
         <h1 class="text-center mb-5">Our best Yachts</h1>
 
+        <form class="row g-3 mb-4" id="yacht-controls">
+            <div class="col-12 col-md-6">
+                <label for="search" class="form-label">Search by name</label>
+                <input type="search" class="form-control" id="search" placeholder="e.g. Azure">
+            </div>
+            <div class="col-6 col-md-3">
+                <label for="type-filter" class="form-label">Type</label>
+                <select class="form-select" id="type-filter">
+                    <option value="all">All types</option>
+                    <option value="sailing">Sailing</option>
+                    <option value="motor">Motor</option>
+                    <option value="superyacht">Superyacht</option>
+                    <option value="catamaran">Catamaran</option>
+                </select>
+            </div>
+            <div class="col-6 col-md-3">
+                <label for="sort" class="form-label">Sort by</label>
+                <select class="form-select" id="sort">
+                    <option value="default">Default</option>
+                    <option value="price-asc">Price: low to high</option>
+                    <option value="price-desc">Price: high to low</option>
+                </select>
+            </div>
+        </form>
+
 
         <section class="row g-4 mb-5" id="yacht-list"></section>
 

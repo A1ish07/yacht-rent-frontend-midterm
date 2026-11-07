@@ -1,4 +1,7 @@
 const yachtList = document.getElementById('yacht-list');
+const searchInput = document.getElementById('search');
+const typeSelect = document.getElementById('type-filter');
+const sortSelect = document.getElementById('sort');
 
 function formatPrice(amount) {
     return '$' + amount.toLocaleString('en-US');
@@ -25,9 +28,35 @@ function createYachtCard(yacht) {
 
 function renderYachts(list) {
     yachtList.innerHTML = '';
+    if (list.length === 0) {
+        yachtList.innerHTML = '<p class="text-center text-muted">No yachts found.</p>';
+        return;
+    }
     list.forEach(yacht => yachtList.appendChild(createYachtCard(yacht)));
 }
 
-if (yachtList) {
-    renderYachts(yachts);
+function filterYachts(list, query, type) {
+    return list.filter(yacht =>
+        yacht.name.toLowerCase().includes(query.toLowerCase()) &&
+        (type === 'all' || yacht.type === type)
+    );
 }
+
+function sortYachts(list, order) {
+    const sorted = [...list];
+    if (order === 'price-asc') sorted.sort((a, b) => a.price - b.price);
+    if (order === 'price-desc') sorted.sort((a, b) => b.price - a.price);
+    return sorted;
+}
+
+function updateYachts() {
+    const filtered = filterYachts(yachts, searchInput.value.trim(), typeSelect.value);
+    renderYachts(sortYachts(filtered, sortSelect.value));
+}
+
+document.getElementById('yacht-controls').addEventListener('submit', e => e.preventDefault());
+searchInput.addEventListener('input', updateYachts);
+typeSelect.addEventListener('change', updateYachts);
+sortSelect.addEventListener('change', updateYachts);
+
+updateYachts();
