@@ -96,7 +96,11 @@ function validateField(input) {
 }
 
 function resetForm(form, alertBox) {
-    alertBox.classList.remove('d-none');
+    if (typeof $ !== 'undefined' && alertBox) {
+        $(alertBox).removeClass('d-none').hide().fadeIn(400);
+    } else if (alertBox) {
+        alertBox.classList.remove('d-none');
+    }
     form.reset();
     form.querySelectorAll('.is-valid, .is-invalid').forEach(el => {
         el.classList.remove('is-valid', 'is-invalid');
@@ -138,7 +142,13 @@ if (form) {
 
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && successBox) {
-            successBox.classList.add('d-none');
+            if (typeof $ !== 'undefined') {
+                $(successBox).fadeOut(300, function () {
+                    $(this).addClass('d-none');
+                });
+            } else {
+                successBox.classList.add('d-none');
+            }
         }
     });
 
