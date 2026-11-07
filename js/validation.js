@@ -17,6 +17,26 @@ function checkDate(dateVal) {
     return dateVal >= today;
 }
 
+function calcTotal(pricePerDay, days) {
+    return pricePerDay * days;
+}
+
+function updateTotal() {
+    const yachtSelect = document.getElementById('yacht');
+    const daysInput = document.getElementById('days');
+    const totalPriceEl = document.getElementById('total-price');
+
+    if (!yachtSelect || !daysInput || !totalPriceEl) return;
+
+    const list = typeof yachts !== 'undefined' ? yachts : [];
+    const selected = list.find(y => y.name === yachtSelect.value);
+    const price = selected ? selected.price : 0;
+    const days = Number(daysInput.value) || 0;
+
+    const total = calcTotal(price, days);
+    totalPriceEl.textContent = '$' + total.toLocaleString('en-US');
+}
+
 function validateField(input) {
     const val = input.value.trim();
 
@@ -81,16 +101,50 @@ function resetForm(form, alertBox) {
     form.querySelectorAll('.is-valid, .is-invalid').forEach(el => {
         el.classList.remove('is-valid', 'is-invalid');
     });
+    updateTotal();
 }
 
 const form = document.getElementById('booking-form');
 const successBox = document.getElementById('booking-success');
 
 if (form) {
+    const inputs = form.querySelectorAll('input, select');
+
+    inputs.forEach(input => {
+        input.addEventListener('blur', function () {
+            validateField(input);
+        });
+
+        input.addEventListener('input', function () {
+            if (input.classList.contains('is-invalid')) {
+                validateField(input);
+            }
+            updateTotal();
+        });
+
+        input.addEventListener('change', function () {
+            validateField(input);
+            updateTotal();
+        });
+    });
+
+    form.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' && e.target.tagName === 'INPUT') {
+            if (!validateField(e.target)) {
+                e.preventDefault();
+            }
+        }
+    });
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && successBox) {
+            successBox.classList.add('d-none');
+        }
+    });
+
     form.addEventListener('submit', function (e) {
         e.preventDefault();
 
-        const inputs = form.querySelectorAll('input, select');
         let allValid = true;
 
         inputs.forEach(input => {
