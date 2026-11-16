@@ -21,6 +21,18 @@ function calcTotal(pricePerDay, days) {
     return pricePerDay * days;
 }
 
+function saveBookingDraft() {
+    const yachtSelect = document.getElementById('yacht');
+    const daysInput = document.getElementById('days');
+    if (!yachtSelect || !daysInput) return;
+
+    const draft = {
+        yacht: yachtSelect.value,
+        days: daysInput.value
+    };
+    localStorage.setItem('bookingDraft', JSON.stringify(draft));
+}
+
 function updateTotal() {
     const yachtSelect = document.getElementById('yacht');
     const daysInput = document.getElementById('days');
@@ -35,6 +47,8 @@ function updateTotal() {
 
     const total = calcTotal(price, days);
     totalPriceEl.textContent = '$' + total.toLocaleString('en-US');
+
+    saveBookingDraft();
 }
 
 function validateField(input) {
