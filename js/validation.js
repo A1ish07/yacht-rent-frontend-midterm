@@ -26,11 +26,60 @@ function saveBookingDraft() {
     const daysInput = document.getElementById('days');
     if (!yachtSelect || !daysInput) return;
 
+    if (!yachtSelect.value && !daysInput.value) {
+        localStorage.removeItem('bookingDraft');
+        return;
+    }
+
     const draft = {
         yacht: yachtSelect.value,
         days: daysInput.value
     };
     localStorage.setItem('bookingDraft', JSON.stringify(draft));
+}
+
+function restoreBookingDraft() {
+    const yachtSelect = document.getElementById('yacht');
+    const daysInput = document.getElementById('days');
+    if (!yachtSelect || !daysInput) return;
+
+    const saved = localStorage.getItem('bookingDraft');
+    if (!saved) return;
+
+    try {
+        const draft = JSON.parse(saved);
+        if (draft && typeof draft === 'object') {
+            if (draft.yacht) {
+                yachtSelect.value = draft.yacht;
+            }
+            if (draft.days) {
+                daysInput.value = draft.days;
+            }
+            updateTotal();
+        }
+    } catch (e) {
+        localStorage.removeItem('bookingDraft');
+    }
+}
+
+function clearBookingDraft() {
+    const yachtSelect = document.getElementById('yacht');
+    const daysInput = document.getElementById('days');
+    const totalPriceEl = document.getElementById('total-price');
+
+    localStorage.removeItem('bookingDraft');
+
+    if (yachtSelect) {
+        yachtSelect.value = '';
+        yachtSelect.classList.remove('is-valid', 'is-invalid');
+    }
+    if (daysInput) {
+        daysInput.value = '';
+        daysInput.classList.remove('is-valid', 'is-invalid');
+    }
+    if (totalPriceEl) {
+        totalPriceEl.textContent = '$0';
+    }
 }
 
 function updateTotal() {
@@ -115,6 +164,7 @@ function resetForm(form, alertBox) {
     } else if (alertBox) {
         alertBox.classList.remove('d-none');
     }
+    localStorage.removeItem('bookingDraft');
     form.reset();
     form.querySelectorAll('.is-valid, .is-invalid').forEach(el => {
         el.classList.remove('is-valid', 'is-invalid');
@@ -126,6 +176,13 @@ const form = document.getElementById('booking-form');
 const successBox = document.getElementById('booking-success');
 
 if (form) {
+    restoreBookingDraft();
+
+    const clearDraftBtn = document.getElementById('clear-draft-btn');
+    if (clearDraftBtn) {
+        clearDraftBtn.addEventListener('click', clearBookingDraft);
+    }
+
     const inputs = form.querySelectorAll('input, select');
 
     inputs.forEach(input => {
