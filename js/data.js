@@ -1,4 +1,4 @@
-const yachts = [
+const yachtData = [
     { id: 1, name: "Azure Spirit", type: "sailing", length: 24, guests: 20, cabins: 4, price: 5200,
       image: "images/azure.png", description: "Luxury sailing yacht, perfect for Mediterranean cruising." },
     { id: 2, name: "Ocean Pearl", type: "motor", length: 30, guests: 18, cabins: 5, price: 4500,
@@ -10,6 +10,7 @@ const yachts = [
     { id: 5, name: "Royal Wave", type: "motor", length: 26, guests: 20, cabins: 5, price: 3800,
       image: "images/royal.png", description: "Classic motor yacht with timeless design and top-tier service." }
 ];
+const yachts = yachtData.map(data => new Yacht(data));
 const destinations = [
     { name: "Santorini, Greece", region: "Mediterranean", price: 1200,
       image: "images/santorini.png", description: "Whitewashed cliffs, sunset sailing and volcanic beaches." },

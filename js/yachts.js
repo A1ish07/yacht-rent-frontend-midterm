@@ -18,10 +18,6 @@ try {
     favorites = [];
 }
 
-function formatPrice(amount) {
-    return '$' + amount.toLocaleString('en-US');
-}
-
 function createYachtCard(yacht) {
     const col = document.createElement('div');
     col.className = 'col-12 col-md-6 col-lg-4';
@@ -36,7 +32,7 @@ function createYachtCard(yacht) {
                 <ul class="list-unstyled">
                     <li><strong>Length:</strong> ${yacht.length} m</li>
                     <li><strong>Capacity:</strong> ${yacht.guests} guests</li>
-                    <li><strong>Price:</strong> ${formatPrice(yacht.price)}/day</li>
+                    <li><strong>Price:</strong> ${yacht.formatPrice()}/day</li>
                 </ul>
             </div>
         </div>`;
@@ -60,7 +56,7 @@ function renderComparison(list) {
             <td>${yacht.length} m</td>
             <td>${yacht.guests} guests</td>
             <td>${yacht.cabins}</td>
-            <td>${formatPrice(yacht.price)}</td>`;
+            <td>${yacht.formatPrice()}</td>`;
         comparisonBody.appendChild(row);
     });
 }
@@ -69,7 +65,7 @@ function createFavoriteItem(yacht) {
     const item = document.createElement('li');
     item.className = 'list-group-item d-flex justify-content-between align-items-center';
     item.innerHTML = `
-        <span>${yacht.name} <small class="text-muted">${formatPrice(yacht.price)}/day</small></span>
+        <span>${yacht.name} <small class="text-muted">${yacht.formatPrice()}/day</small></span>
         <button type="button" class="btn btn-sm btn-outline-danger btn-remove" data-id="${yacht.id}">Remove</button>`;
     return item;
 }

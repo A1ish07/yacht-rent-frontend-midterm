@@ -116,15 +116,13 @@ function updateTotal() {
 
     const list = typeof yachts !== 'undefined' ? yachts : [];
     const selected = list.find(y => y.name === yachtSelect.value);
-    const yachtPrice = selected ? selected.price : 0;
-    const captainPrice = (captainCheck && captainCheck.checked) ? 200 : 0;
-    const cateringPrice = (cateringCheck && cateringCheck.checked) ? 100 : 0;
-    const days = Number(daysInput.value) || 0;
+    const services = {
+        captain: !!(captainCheck && captainCheck.checked),
+        catering: !!(cateringCheck && cateringCheck.checked)
+    };
 
-    const dailyTotal = yachtPrice + captainPrice + cateringPrice;
-    const total = calcTotal(dailyTotal, days);
-    totalPriceEl.textContent = '$' + total.toLocaleString('en-US');
-
+    const total = selected ? selected.calculateTotal(daysInput.value, services) : 0;
+    totalPriceEl.textContent = Yacht.formatMoney(total);
     saveBookingDraft();
 }
 
