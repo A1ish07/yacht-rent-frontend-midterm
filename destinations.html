@@ -43,7 +43,14 @@
         </div>
 
         <section class="destinations-grid" id="routes"></section>
-
+        <section class="mt-5" id="weather-section" aria-labelledby="weather-title">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+                <h2 class="h4 mb-0" id="weather-title">Weather in popular destinations</h2>
+                <button type="button" class="btn btn-outline-secondary btn-sm" id="weather-refresh">Refresh</button>
+            </div>
+            <div id="weather-status" role="status" aria-live="polite"></div>
+            <div class="row g-3" id="weather-list"></div>
+        </section>
         <section class="text-center mt-5">
             <a href="contact.html" class="btn btn-gold px-5">Plan My Trip</a>
         </section>
@@ -60,5 +67,6 @@
     <script src="js/Yacht.js"></script>
     <script src="js/data.js"></script>
     <script src="js/destinations.js"></script>
+    <script src="js/weather.js"></script>
 </body>
 </html>

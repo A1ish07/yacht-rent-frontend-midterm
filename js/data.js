@@ -12,16 +12,16 @@ const yachtData = [
 ];
 const yachts = yachtData.map(data => new Yacht(data));
 const destinations = [
-    { name: "Santorini, Greece", region: "Mediterranean", price: 1200,
+    { name: "Santorini, Greece", region: "Mediterranean", price: 1200, lat: 36.39, lon: 25.46,
       image: "images/santorini.png", description: "Whitewashed cliffs, sunset sailing and volcanic beaches." },
-    { name: "Amalfi Coast, Italy", region: "Mediterranean", price: 2500,
+    { name: "Amalfi Coast, Italy", region: "Mediterranean", price: 2500, lat: 40.63, lon: 14.6,
       image: "images/amalfi.png", description: "Colorful villages, lemon groves and hidden coves." },
-    { name: "French Riviera", region: "Mediterranean", price: 3800,
+    { name: "French Riviera", region: "Mediterranean", price: 3800, lat: 43.7, lon: 7.27,
       image: "images/french.png", description: "Glamorous harbors of Nice, Cannes and Saint-Tropez." },
-    { name: "Dubrovnik, Croatia", region: "Mediterranean", price: 800,
+    { name: "Dubrovnik, Croatia", region: "Mediterranean", price: 800, lat: 42.65, lon: 18.09,
       image: "images/crotia.png", description: "Medieval walls and the calm Adriatic islands." },
-    { name: "Bahamas", region: "Caribbean", price: 2500,
+    { name: "Bahamas", region: "Caribbean", price: 2500, lat: 25.04, lon: -77.35,
       image: "images/bahamas.png", description: "Turquoise water, white sand and swimming pigs." },
-    { name: "Maldives", region: "Indian Ocean", price: 5000,
+    { name: "Maldives", region: "Indian Ocean", price: 5000, lat: 4.18, lon: 73.51,
       image: "images/maldives.png", description: "Overwater villas, coral reefs and private atolls." }
 ];
