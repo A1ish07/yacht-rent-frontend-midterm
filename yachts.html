@@ -58,7 +58,22 @@
                     <option value="price-desc">Price: high to low</option>
                 </select>
             </div>
+            <div class="col-6 col-md-3">
+                <label for="min-price" class="form-label">Min price ($/day)</label>
+                <input type="number" class="form-control" id="min-price" placeholder="e.g. 2000" min="0">
+            </div>
+            <div class="col-6 col-md-3">
+                <label for="max-price" class="form-label">Max price ($/day)</label>
+                <input type="number" class="form-control" id="max-price" placeholder="e.g. 6000" min="0">
+            </div>
+            <div class="col-12 col-md-3 d-flex align-items-end">
+                <button type="button" class="btn btn-outline-secondary w-100" id="reset-filters-btn">Reset Filters</button>
+            </div>
         </form>
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <p class="text-muted mb-0" id="yacht-count">Showing 5 of 5 yachts</p>
+        </div>
 
 
         <section class="mb-5">

@@ -6,6 +6,10 @@ const comparisonBody = document.getElementById('comparison-body');
 const favoritesList = document.getElementById('favorites-list');
 const favoritesEmpty = document.getElementById('favorites-empty');
 const favoritesCount = document.getElementById('favorites-count');
+const minPriceInput = document.getElementById('min-price');
+const maxPriceInput = document.getElementById('max-price');
+const resetFiltersBtn = document.getElementById('reset-filters-btn');
+const yachtCount = document.getElementById('yacht-count');
 
 let favorites = [];
 try {
@@ -87,11 +91,17 @@ function toggleFavorite(id) {
     updateYachts();
 }
 
-function filterYachts(list, query, type) {
-    return list.filter(yacht =>
-        yacht.name.toLowerCase().includes(query.toLowerCase()) &&
-        (type === 'all' || yacht.type === type)
-    );
+function filterYachts(list, query, type, minPrice, maxPrice) {
+    const min = minPrice !== '' ? Number(minPrice) : null;
+    const max = maxPrice !== '' ? Number(maxPrice) : null;
+
+    return list.filter(yacht => {
+        const matchesName = yacht.name.toLowerCase().includes(query.toLowerCase());
+        const matchesType = type === 'all' || yacht.type === type;
+        const matchesMin = min === null || isNaN(min) || yacht.price >= min;
+        const matchesMax = max === null || isNaN(max) || yacht.price <= max;
+        return matchesName && matchesType && matchesMin && matchesMax;
+    });
 }
 
 function sortYachts(list, order) {
@@ -102,14 +112,39 @@ function sortYachts(list, order) {
 }
 
 function updateYachts() {
-    const filtered = filterYachts(yachts, searchInput.value.trim(), typeSelect.value);
-    renderYachts(sortYachts(filtered, sortSelect.value));
+    const minVal = minPriceInput ? minPriceInput.value.trim() : '';
+    const maxVal = maxPriceInput ? maxPriceInput.value.trim() : '';
+
+    const filtered = filterYachts(yachts, searchInput.value.trim(), typeSelect.value, minVal, maxVal);
+    const sorted = sortYachts(filtered, sortSelect.value);
+
+    renderYachts(sorted);
+
+    if (yachtCount) {
+        if (sorted.length === 0) {
+            yachtCount.textContent = 'No yachts found';
+        } else {
+            yachtCount.textContent = `Showing ${sorted.length} of ${yachts.length} yachts`;
+        }
+    }
+}
+
+function resetFilters() {
+    searchInput.value = '';
+    typeSelect.value = 'all';
+    sortSelect.value = 'default';
+    if (minPriceInput) minPriceInput.value = '';
+    if (maxPriceInput) maxPriceInput.value = '';
+    updateYachts();
 }
 
 document.getElementById('yacht-controls').addEventListener('submit', e => e.preventDefault());
 searchInput.addEventListener('input', updateYachts);
 typeSelect.addEventListener('change', updateYachts);
 sortSelect.addEventListener('change', updateYachts);
+if (minPriceInput) minPriceInput.addEventListener('input', updateYachts);
+if (maxPriceInput) maxPriceInput.addEventListener('input', updateYachts);
+if (resetFiltersBtn) resetFiltersBtn.addEventListener('click', resetFilters);
 
 yachtList.addEventListener('click', e => {
     const heart = e.target.closest('.btn-heart');
