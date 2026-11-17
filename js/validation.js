@@ -24,16 +24,23 @@ function calcTotal(pricePerDay, days) {
 function saveBookingDraft() {
     const yachtSelect = document.getElementById('yacht');
     const daysInput = document.getElementById('days');
+    const captainCheck = document.getElementById('service-captain');
+    const cateringCheck = document.getElementById('service-catering');
     if (!yachtSelect || !daysInput) return;
 
-    if (!yachtSelect.value && !daysInput.value) {
+    const isCaptain = captainCheck ? captainCheck.checked : false;
+    const isCatering = cateringCheck ? cateringCheck.checked : false;
+
+    if (!yachtSelect.value && !daysInput.value && !isCaptain && !isCatering) {
         localStorage.removeItem('bookingDraft');
         return;
     }
 
     const draft = {
         yacht: yachtSelect.value,
-        days: daysInput.value
+        days: daysInput.value,
+        captain: isCaptain,
+        catering: isCatering
     };
     localStorage.setItem('bookingDraft', JSON.stringify(draft));
 }
@@ -41,6 +48,8 @@ function saveBookingDraft() {
 function restoreBookingDraft() {
     const yachtSelect = document.getElementById('yacht');
     const daysInput = document.getElementById('days');
+    const captainCheck = document.getElementById('service-captain');
+    const cateringCheck = document.getElementById('service-catering');
     if (!yachtSelect || !daysInput) return;
 
     const saved = localStorage.getItem('bookingDraft');
@@ -55,6 +64,12 @@ function restoreBookingDraft() {
             if (draft.days) {
                 daysInput.value = draft.days;
             }
+            if (captainCheck && typeof draft.captain === 'boolean') {
+                captainCheck.checked = draft.captain;
+            }
+            if (cateringCheck && typeof draft.catering === 'boolean') {
+                cateringCheck.checked = draft.catering;
+            }
             updateTotal();
         }
     } catch (e) {
@@ -65,6 +80,8 @@ function restoreBookingDraft() {
 function clearBookingDraft() {
     const yachtSelect = document.getElementById('yacht');
     const daysInput = document.getElementById('days');
+    const captainCheck = document.getElementById('service-captain');
+    const cateringCheck = document.getElementById('service-catering');
     const totalPriceEl = document.getElementById('total-price');
 
     localStorage.removeItem('bookingDraft');
@@ -77,6 +94,12 @@ function clearBookingDraft() {
         daysInput.value = '';
         daysInput.classList.remove('is-valid', 'is-invalid');
     }
+    if (captainCheck) {
+        captainCheck.checked = false;
+    }
+    if (cateringCheck) {
+        cateringCheck.checked = false;
+    }
     if (totalPriceEl) {
         totalPriceEl.textContent = '$0';
     }
@@ -85,16 +108,21 @@ function clearBookingDraft() {
 function updateTotal() {
     const yachtSelect = document.getElementById('yacht');
     const daysInput = document.getElementById('days');
+    const captainCheck = document.getElementById('service-captain');
+    const cateringCheck = document.getElementById('service-catering');
     const totalPriceEl = document.getElementById('total-price');
 
     if (!yachtSelect || !daysInput || !totalPriceEl) return;
 
     const list = typeof yachts !== 'undefined' ? yachts : [];
     const selected = list.find(y => y.name === yachtSelect.value);
-    const price = selected ? selected.price : 0;
+    const yachtPrice = selected ? selected.price : 0;
+    const captainPrice = (captainCheck && captainCheck.checked) ? 200 : 0;
+    const cateringPrice = (cateringCheck && cateringCheck.checked) ? 100 : 0;
     const days = Number(daysInput.value) || 0;
 
-    const total = calcTotal(price, days);
+    const dailyTotal = yachtPrice + captainPrice + cateringPrice;
+    const total = calcTotal(dailyTotal, days);
     totalPriceEl.textContent = '$' + total.toLocaleString('en-US');
 
     saveBookingDraft();
