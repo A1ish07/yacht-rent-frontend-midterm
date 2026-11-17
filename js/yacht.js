@@ -18,6 +18,19 @@ class Yacht {
         return '$' + amount.toLocaleString('en-US');
     }
 
+    static getStats(list) {
+        if (list.length === 0) {
+            return { count: 0, averagePrice: 0, cheapest: null };
+        }
+        const totalPrice = list.reduce((sum, yacht) => sum + yacht.price, 0);
+        const cheapest = list.reduce((min, yacht) => (yacht.price < min.price ? yacht : min));
+        return {
+            count: list.length,
+            averagePrice: Math.round(totalPrice / list.length),
+            cheapest: cheapest
+        };
+    }
+
     formatPrice() {
         return Yacht.formatMoney(this.price);
     }

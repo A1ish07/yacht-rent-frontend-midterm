@@ -10,6 +10,10 @@ const minPriceInput = document.getElementById('min-price');
 const maxPriceInput = document.getElementById('max-price');
 const resetFiltersBtn = document.getElementById('reset-filters-btn');
 const yachtCount = document.getElementById('yacht-count');
+const statCount = document.getElementById('stat-count');
+const statAverage = document.getElementById('stat-average');
+const statCheapest = document.getElementById('stat-cheapest');
+const statCheapestName = document.getElementById('stat-cheapest-name');
 
 let favorites = [];
 try {
@@ -107,6 +111,24 @@ function sortYachts(list, order) {
     return sorted;
 }
 
+function renderStats(list) {
+    if (!statCount || !statAverage || !statCheapest || !statCheapestName) return;
+
+    const stats = Yacht.getStats(list);
+    statCount.textContent = stats.count;
+
+    if (stats.count === 0) {
+        statAverage.textContent = '—';
+        statCheapest.textContent = '—';
+        statCheapestName.textContent = 'No yachts to compare';
+        return;
+    }
+
+    statAverage.textContent = Yacht.formatMoney(stats.averagePrice) + '/day';
+    statCheapest.textContent = stats.cheapest.formatPrice() + '/day';
+    statCheapestName.textContent = stats.cheapest.name;
+}
+
 function updateYachts() {
     const minVal = minPriceInput ? minPriceInput.value.trim() : '';
     const maxVal = maxPriceInput ? maxPriceInput.value.trim() : '';
@@ -115,6 +137,7 @@ function updateYachts() {
     const sorted = sortYachts(filtered, sortSelect.value);
 
     renderYachts(sorted);
+    renderStats(sorted);
 
     if (yachtCount) {
         if (sorted.length === 0) {
